@@ -3,12 +3,8 @@
 Examples using [PowerQueryLib](https://github.com/ninmonkey/Ninmonkey.PowerQueryLib)
 
 
-https://github.com/ninmonkey/PowerQuery-ExampleReports/tree/main/Reports/HTTP%20Methods
-
 ## Web Methods
 
-Fire multiple HTTP requests based on a table
+[Fire multiple HTTP requests based on a table](./Reports/HTTP%20Methods/HTTP%20Methods.pbix)
 
-![HTTP requests]('./Reports/HTTP Methods/HTTP Methods.pbix-screenshot.png')
-
-![nin](/Reports/HTTP Methods/HTTP Methods.pbix-screenshot.png)
+![HTTP Get Requests](./Reports/HTTP%20Methods/HTTP%20Methods.pbix-screenshot.png)
