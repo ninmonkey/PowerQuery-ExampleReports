@@ -1,5 +1,4 @@
 # Todo
 
-TextAsList
-
--   [ ] item
+-  HTTP methods
+  - [ ] POST, PUT, etc
