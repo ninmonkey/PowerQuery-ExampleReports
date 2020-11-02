@@ -9,4 +9,6 @@ https://github.com/ninmonkey/PowerQuery-ExampleReports/tree/main/Reports/HTTP%20
 
 Fire multiple HTTP requests based on a table
 
-![HTTP requests](./Reports/HTTP Methods/HTTP Methods.pbix-screenshot.png)
+![HTTP requests]('./Reports/HTTP Methods/HTTP Methods.pbix-screenshot.png')
+
+![nin](/Reports/HTTP Methods/HTTP Methods.pbix-screenshot.png)
