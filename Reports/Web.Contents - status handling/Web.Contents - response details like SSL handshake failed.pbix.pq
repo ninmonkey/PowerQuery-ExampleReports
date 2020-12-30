@@ -1,3 +1,4 @@
+// Get WebContents Response values and status codes
 let
     UseMinimal = false,
     RequestOptions =  [
