@@ -1,10 +1,15 @@
-// Get WebContents Response values and status codes
 let
     // toggles hiding extra columns
-    UseMinimal = false,
+    UseMinimal = false,         // simplify final table output
+    UseFastTest = true,         // skip most tests to quickly test the connection?
+                                // slow might need a sleep delay/waitfor pattern to play nice
     /*
-    future:
+    todo:
         - add delay testing: <https://httpstat.us/200?sleep=2000>
+        - retry pattern: <https://docs.microsoft.com/en-us/power-query/waitretry>
+        - Uri split query string
+        - <https://docs.microsoft.com/en-us/power-query/helperfunctions#urifromparts>
+        - <https://docs.microsoft.com/en-us/power-query/helperfunctions#retrieving-data>
     */
     // every code supported by <https://httpstat.us/>
     ErrorCodes_https_supported =
@@ -12,7 +17,7 @@ let
         & {400..429} & {431, 451} & {500..507}
         & {511, 520, 522, 524},
 
-    ErrorCodes_default = {400,401,403,404,429,500,503},
+    ErrorCodes_default = {400..405} & {429,500,503},
 
 
     ErrorCodes_ManualStatusHandling =
@@ -30,21 +35,31 @@ let
 
     ],
     static_UrlList = {
-        "https://httpbin.org/",
+        // test TLS errors
         "https://wrong.host.badssl.com/",
         "https://expired.badssl.com/",
-        "http://www.somefakenamedoesnotexist.com"
+        // non-existing domain
+        "http://www.somefakenamedoesnotexist.com",
+
+        // a couple specific HTTP statuses
+        "https://httpbin.org/",
+        "https://httpstat.us/200",
+        "https://httpstat.us/404",
+        "https://httpstat.us/403",
+        "https://httpstat.us/405"
     },
 
     dynamic_UrlList =
         List.Transform(
             ErrorCodes_https_supported,
-            each "dsfd" & _
+            (_ as any) as text =>
+                "https://httpstat.us/" & Text.From( _ )
         ),
 
-    urlList = static_UrlList & dynamicUrlList,
 
-
+    urlList =
+        if UseFastTest then static_UrlList
+        else static_UrlList & dynamic_UrlList,
 
     responseList = List.Transform(
         urlList,
@@ -61,14 +76,40 @@ let
         let
             metaData = Value.Metadata( response ),
             maybeErr = try metaData[Content.Type],
-            r2 = Record.AddField(metaData, "Binary", response, null ),
+
+            /*
+            Careful:
+                Binary.Length( Web.Contents( ...a 403 response ) )
+
+            will throw
+                "Expression.Error: Access to the resource if forbidden"
+
+            Note:
+                - No error occurs on Value.Metadata() but it will on value calls
+                - Exception is high level
+                    even a 'try' or 'let' block cannot capture it.
+                    an error record isn't returned if you use a "try"
+
+            403 returns status code null
+
+            */
+            contentLength =
+                if ( metaData[Response.Status] = 403 or metaData[Response.Status] = null) then null
+                else Binary.Length( response ),
+
+            r1 = Record.AddField(metaData, "Binary", response, null ),
+            r2 = Record.AddField(r1, "Content.Length", contentLength, null
+            ),
             r3 = Record.AddField(r2, "Response.Error",
                 if maybeErr[HasError] then maybeErr[Error] else null,
                 null
             ),
-            r4 = Record.AddField(r3, "Url", metaData[Content.Uri]() )
+            r4 = Record.AddField(r3, "Url", metaData[Content.Uri]() ),
+            r5 = Record.RemoveFields(
+                r4, {"Content.Uri"}, MissingField.UseNull
+            )
         in
-            r4,
+            r5,
 
     metaDataList = List.Transform(
         responseList,
@@ -78,15 +119,16 @@ let
     WebRequestList_ToTable = (source as list, optional minimal as nullable logical) as table =>
         let
             WebRequest_Table.Type = type table[
+                Url = text,
+                Response.Status = number, // always?
                 Content.Type = text,
-                Content.Uri = Function.Type,
-                Content.Name = text,
+                Content.Length = Int64.Type,
+                Response.Error = record,
+                // Content.Uri = Function.Type, it returns the url, nothing else? or re-invoke original?
+                Content.Name = text, // probably base url
                 Headers = record,
                 Request.Options = record,
-                Response.Status = number, // always?
-                Response.Error = record,
-                Binary = binary,
-                Url = text
+                Binary = binary
         ],
 
         t1 = Table.FromRecords(
