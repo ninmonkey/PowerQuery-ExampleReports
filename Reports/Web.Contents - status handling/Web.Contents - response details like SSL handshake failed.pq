@@ -1,19 +1,50 @@
 // Get WebContents Response values and status codes
 let
+    // toggles hiding extra columns
     UseMinimal = false,
+    /*
+    future:
+        - add delay testing: <https://httpstat.us/200?sleep=2000>
+    */
+    // every code supported by <https://httpstat.us/>
+    ErrorCodes_https_supported =
+        {100..103} & {200..206} & {300..308}
+        & {400..429} & {431, 451} & {500..507}
+        & {511, 520, 522, 524},
+
+    ErrorCodes_default = {400,401,403,404,429,500,503},
+
+
+    ErrorCodes_ManualStatusHandling =
+        ErrorCodes_default,
+        // {400,401,403,404,429,500,503},
+    ErrorCodes_StatusList =
+        ErrorCodes_ManualStatusHandling,
+        // ErrorCodes_ManualStatusHandling
+
     RequestOptions =  [
         // Timeout = // as duration: default is 100ms
         // IsRetry = true, // true: means ignore cached response
-        // ManualStatusHandling = {400,401,403,404,429,500,503}
-        ManualStatusHandling = {200..299} & {400..599} // didn't seem to ever throw an exception
+        // ManualStatusHandling =
+        ManualStatusHandling = ErrorCodes_ManualStatusHandling
 
     ],
-    urlList = {
+    static_UrlList = {
         "https://httpbin.org/",
         "https://wrong.host.badssl.com/",
         "https://expired.badssl.com/",
         "http://www.somefakenamedoesnotexist.com"
     },
+
+    dynamic_UrlList =
+        List.Transform(
+            ErrorCodes_https_supported,
+            each "dsfd" & _
+        ),
+
+    urlList = static_UrlList & dynamicUrlList,
+
+
 
     responseList = List.Transform(
         urlList,
