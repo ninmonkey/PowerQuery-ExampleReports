@@ -3,18 +3,11 @@
 Examples using [PowerQueryLib](https://github.com/ninmonkey/Ninmonkey.PowerQueryLib)
 
 
-https://github.com/ninmonkey/PowerQuery-ExampleReports/tree/main/Reports/HTTP%20Methods
-
 ## Web Methods
 
-Fire multiple HTTP requests based on a table
+![HTTP Get Requests](./Reports/HTTP%20Methods/HTTP%20Methods.pbix-screenshot.png)
+[Fire multiple HTTP requests based on a table.pbix](./Reports/HTTP%20Methods/HTTP%20Methods.pbix)
 
-![HTTP requests](./Reports/HTTP Methods/HTTP Methods.pbix-screenshot.png)
+![Get HTTP Response Details](./Reports/Web.Contents%20-%20status%20handling/Web.Contents%20-%20response%20details%20like%20SSL%20handshake%20failed.png)
 
-
-
-![HTTP requests]('./Reports/HTTP Methods/HTTP Methods.pbix-screenshot.png')
-
-![httpstuff]('C:\Users\cppmo_000\Documents\2020\Power BI\my_github\Ninmonkey.PowerQueryExampleReports\Reports\HTTP Methods\HTTP Methods.pbix-screenshot.png')
-
-![dsfds]('https://github.com/ninmonkey/PowerQuery-ExampleReports/blob/9364fe23e360938d486ab4b6fc4e13c2149f726d/Reports/HTTP Methods/HTTP Methods.pbix-screenshot.png')
+[Get HTTP Response Details.pq](./Reports/Web.Contents%20-%20status%20handling/Web.Contents%20-%20response%20details%20like%20SSL%20handshake%20failed.pq), [Get HTTP Response Details.pbix](./Reports/Web.Contents%20-%20status%20handling/Web.Contents%20-%20response%20details%20like%20SSL%20handshake%20failed.pbix)
