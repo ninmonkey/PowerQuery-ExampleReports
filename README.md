@@ -19,4 +19,4 @@ Examples using [PowerQueryLib](https://github.com/ninmonkey/Ninmonkey.PowerQuery
 
 ![DateTime.From culture](./Reports/culture/dynamically_import_dates_from_multiple_cultures.png)
 
-[DateTime.From culture.pq](./Reports/culture/dynamically_import_dates_from_multiple_cultures.png.pq), [DateTime.From culture.pbix](./Reports/culture/dynamically_import_dates_from_multiple_cultures.png.pbix)
+[DateTime.From culture.pq](./Reports/culture/dynamically_import_dates_from_multiple_cultures.pq), [DateTime.From culture.pbix](./Reports/culture/dynamically_import_dates_from_multiple_cultures.pbix)
