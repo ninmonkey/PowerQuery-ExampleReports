@@ -1,7 +1,10 @@
+- [PowerQueryLib: ExampleReports](#powerquerylib-examplereports)
+  - [Web Methods](#web-methods)
+  - [Dates, DateTimes using `culture`](#dates-datetimes-using-culture)
+
 # PowerQueryLib: ExampleReports
 
 Examples using [PowerQueryLib](https://github.com/ninmonkey/Ninmonkey.PowerQueryLib)
-
 
 ## Web Methods
 
@@ -11,3 +14,9 @@ Examples using [PowerQueryLib](https://github.com/ninmonkey/Ninmonkey.PowerQuery
 ![Get HTTP Response Details](./Reports/Web.Contents%20-%20status%20handling/Web.Contents%20-%20response%20details%20like%20SSL%20handshake%20failed.png)
 
 [Get HTTP Response Details.pq](./Reports/Web.Contents%20-%20status%20handling/Web.Contents%20-%20response%20details%20like%20SSL%20handshake%20failed.pq), [Get HTTP Response Details.pbix](./Reports/Web.Contents%20-%20status%20handling/Web.Contents%20-%20response%20details%20like%20SSL%20handshake%20failed.pbix)
+
+## Dates, DateTimes using `culture`
+
+![DateTime.From culture](./Reports/culture/dynamically_import_dates_from_multiple_cultures.png)
+
+[DateTime.From culture.pq](./Reports/culture/dynamically_import_dates_from_multiple_cultures.png.pq), [DateTime.From culture.pbix](./Reports/culture/dynamically_import_dates_from_multiple_cultures.png.pbix)
